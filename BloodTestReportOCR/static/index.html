@@ -199,10 +199,13 @@
                         "value":data
                     }))
                 };
-
+		//add fid as input     
+                url = $("#filtered-report").attr("src");
+                url = 'predict/' + url.split('/')[2];
 
                 $.ajax({
-                    url: "/predict",
+                    //url: "/predict",
+		    url: url,
                     type: 'POST',
                     data: data,
                     success: function(data) {
