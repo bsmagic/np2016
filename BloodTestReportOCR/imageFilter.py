@@ -60,11 +60,15 @@ class ImageFilter:
         edges = cv2.Canny(opened, canny_param_lower , canny_param_upper)
 
         # 调用findContours提取轮廓
-        contours, hierarchy = cv2.findContours(edges, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        #contours, hierarchy = cv2.findContours(edges, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+	#opencv version issue:number of return values changed from 2 to 3
+        _,contours, hierarchy = cv2.findContours(edges, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
         def getbox(i):
             rect = cv2.minAreaRect(contours[i])
-            box = cv2.cv.BoxPoints(rect)
+	    #opencv version issue: cv.BoxPoints to boxPoints
+            #box = cv2.cv.BoxPoints(rect)
+	    box=cv2.boxPoints(rect)	
             box = np.int0(box)
             return box
 
